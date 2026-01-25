@@ -1,7 +1,7 @@
 @props(['product'])
 
 <div class="bg-white p-4 rounded-[2.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group">
-    {{-- Imagem --}}
+    
     <div class="relative overflow-hidden rounded-[2rem] mb-6 aspect-square">
         <img src="{{ $product->image }}" alt="{{ $product->title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
         
@@ -15,10 +15,7 @@
         
         <div class="flex items-center justify-between mt-4">
             <span class="text-2xl font-black text-gray-900">
-                {{-- 
-                   FORÇAMOS A DIVISÃO AQUI: 
-                   Se o model falhar, o PHP divide o valor bruto por 100 antes de exibir.
-                --}}
+                
                 @php
                     $valorReal = is_numeric($product->price) && $product->price > 500 
                                  ? $product->price / 100 

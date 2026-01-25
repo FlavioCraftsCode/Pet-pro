@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Redireciona usuários logados para a Home e visitantes para o Login
+        
+        // Esta linha permite que o Laravel aceite requisições vindo do túnel do Cloudflare
+        $middleware->trustProxies(at: '*');
+
         $middleware->redirectTo(
             guests: '/login',
             users: '/' 

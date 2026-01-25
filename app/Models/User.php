@@ -11,18 +11,15 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * Atributos preenchíveis.
-     * Removido o campo 'phone' para simplificar o cadastro.
-     */
+    
     protected $fillable = [
         'name',
         'email',
         'password',
-        'role', // Mantemos o role para controle de acesso (admin/customer)
+        'role', 
     ];
 
     protected $hidden = [
@@ -30,9 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    /**
-     * Conversão de tipos.
-     */
+    
     protected function casts(): array
     {
         return [
@@ -41,18 +36,13 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    /**
-     * MÉTODO DE ELITE: Sobrescreve o envio padrão de verificação.
-     * Envia o código de 6 dígitos formatado para o e-mail.
-     */
+    
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailCode());
     }
 
-    /**
-     * Helper para verificar se o usuário é administrador.
-     */
+    
     public function isAdmin(): bool
     {
         return $this->role === 'admin';

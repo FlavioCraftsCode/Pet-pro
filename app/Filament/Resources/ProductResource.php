@@ -49,16 +49,16 @@ class ProductResource extends Resource
                             ->minValue(0)
                             ->default(0),
                         
-                        // CAMPO DE IMAGEM CORRIGIDO ABAIXO
+                        
                         Forms\Components\TextInput::make('image')
                             ->label('Caminho ou URL da Imagem')
                             ->placeholder('/img/produtos/nome-da-foto.png')
                             ->required()
                             ->maxLength(255)
                             ->hint('Aceita links externos ou caminhos locais (ex: /img/...)')
-                            ->live(onBlur: true), // Atualiza o preview assim que você sai do campo
+                            ->live(onBlur: true), 
 
-                        // Preview visual para se destacar no Upwork
+                        
                         Forms\Components\Placeholder::make('image_preview')
                             ->label('Prévia da Imagem')
                             ->content(fn ($get) => $get('image') ? 
@@ -73,7 +73,7 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                // Adicionamos um preview da imagem na tabela
+                
                 Tables\Columns\ImageColumn::make('image')
                     ->label('Foto')
                     ->circular(), 
@@ -85,25 +85,25 @@ class ProductResource extends Resource
                 
                 Tables\Columns\TextColumn::make('category')
                     ->label('Categoria')
-                    ->badge() // Estiliza a categoria como um selo
+                    ->badge() 
                     ->color('gray'),
                 
                 Tables\Columns\TextColumn::make('price')
                     ->label('Preço')
                     ->money('BRL', divideBy: 100)
                     ->sortable()
-                    ->color('success') // Preço em verde
+                    ->color('success') 
                     ->weight('bold'),
                 
                 Tables\Columns\TextColumn::make('stock')
                     ->label('Estoque')
                     ->numeric()
                     ->sortable()
-                    // Muda a cor se o estoque estiver baixo (Exemplo avançado)
+                    
                     ->color(fn (int $state): string => $state < 5 ? 'danger' : 'success'),
             ])
             ->filters([
-                // Adiciona filtro por categoria para facilitar a gestão
+                
                 Tables\Filters\SelectFilter::make('category')
                     ->label('Filtrar Categoria')
                     ->options([
@@ -115,7 +115,7 @@ class ProductResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(), // Adicionada ação de excluir individual
+                Tables\Actions\DeleteAction::make(), 
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

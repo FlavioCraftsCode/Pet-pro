@@ -3,15 +3,18 @@ import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
-// --- STORE GLOBAL DO CARRINHO ---
+// Store do Carrinho - Mantida e otimizada
 Alpine.store('cart', {
     items: [],
     add(product) {
         this.items.push(product);
-        localStorage.setItem('petpro_cart', JSON.stringify(this.items));
+        this.save();
     },
     remove(index) {
         this.items.splice(index, 1);
+        this.save();
+    },
+    save() {
         localStorage.setItem('petpro_cart', JSON.stringify(this.items));
     },
     total() {
@@ -23,41 +26,51 @@ Alpine.store('cart', {
     }
 });
 
-// --- LÓGICA DO SLIDER DE SERVIÇOS (sliderHandler) ---
-// Esta função faz as setas controlarem o scroll horizontal do seu HTML
+// Slider Handler Profissional e Responsivo
 window.sliderHandler = function() {
     return {
         atBeginning: true,
         atEnd: false,
+        scrollPercent: 0, // Necessário para a barra de progresso mobile
 
-        // Verifica se o scroll está no início ou no fim para desativar as setas
         checkScroll() {
             const slider = this.$refs.slider;
             if (!slider) return;
+
+            // Detecta se está no início ou fim com margem de erro de 5px
             this.atBeginning = slider.scrollLeft <= 5;
-            this.atEnd = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 5;
+            this.atEnd = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 5;
+
+            // Calcula a porcentagem do scroll para o indicador visual
+            const maxScroll = slider.scrollWidth - slider.clientWidth;
+            this.scrollPercent = maxScroll > 0 ? (slider.scrollLeft / maxScroll) * 100 : 0;
         },
 
-        // Faz o movimento de deslizar
         scrollTo(direction) {
             const slider = this.$refs.slider;
             if (!slider) return;
             
-            // Calcula o tamanho de um card (aproximadamente 350px a 400px dependendo do gap)
-            const scrollAmount = slider.offsetWidth / 2; 
+            // Em mobile, movemos 80% da tela. Em desktop, movemos 1 card inteiro.
+            const isMobile = window.innerWidth < 768;
+            const scrollAmount = isMobile ? slider.clientWidth * 0.8 : slider.clientWidth / 2;
             
             slider.scrollBy({
                 left: direction === 'next' ? scrollAmount : -scrollAmount,
                 behavior: 'smooth'
             });
 
-            // Atualiza o estado das setas após o movimento
-            setTimeout(() => this.checkScroll(), 350);
+            // O timeout garante que a verificação ocorra após a animação do smooth scroll
+            setTimeout(() => this.checkScroll(), 400);
         },
 
-        // Inicializa a verificação ao carregar
         init() {
-            this.$nextTick(() => this.checkScroll());
+            // Inicializa o estado do scroll
+            this.$nextTick(() => {
+                this.checkScroll();
+            });
+
+            // Listener para redimensionamento de janela (responsividade dinâmica)
+            window.addEventListener('resize', () => this.checkScroll());
         }
     }
 }

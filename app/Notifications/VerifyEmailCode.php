@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\Cache; // Importação necessária para o cache
+use Illuminate\Support\Facades\Cache; 
 
 class VerifyEmailCode extends Notification
 {
@@ -24,10 +24,10 @@ class VerifyEmailCode extends Notification
 
     public function toMail($notifiable)
     {
-        // Gera o código
+        
         $code = rand(100000, 999999);
         
-        // Salva no Cache (Chave, Valor, Tempo)
+        
         Cache::put("verify_code_{$notifiable->email}", $code, now()->addMinutes(15));
 
         return (new MailMessage)

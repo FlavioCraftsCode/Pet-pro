@@ -3,7 +3,7 @@
 
     <x-header />
 
-    {{-- Usando ponto (.) para acessar subpastas em components/sections --}}
+    
     <x-sections.hero />
 
     <x-sections.shop />

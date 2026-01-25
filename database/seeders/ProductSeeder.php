@@ -9,7 +9,7 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        // Força a limpeza da tabela antes de inserir
+        
         Product::query()->delete(); 
 
         $produtos = [
@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
             ['title' => 'Guia Retrátil', 'category' => 'Acessórios', 'image' => '/img/produtos/retratil.png', 'price' => 4500, 'stock' => 10],
             ['title' => 'Mordedor Pro', 'category' => 'Brinquedos', 'image' => '/img/produtos/mordedor.png', 'price' => 2590, 'stock' => 10],
             ['title' => 'Kit Bucal', 'category' => 'Saúde', 'image' => '/img/produtos/bucal.png', 'price' => 3990, 'stock' => 10],
-            // Adicionei mais 2 para o botão "Ver Mais" aparecer:
+            
             ['title' => 'Cama Nuvem', 'category' => 'Conforto', 'image' => '/img/produtos/nuvem.png', 'price' => 12900, 'stock' => 10],
             ['title' => 'Mix Frutas', 'category' => 'Petiscos', 'image' => '/img/produtos/frutas.png', 'price' => 1590, 'stock' => 10],
         ];

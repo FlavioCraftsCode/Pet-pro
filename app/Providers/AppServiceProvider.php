@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL; // Importação necessária
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // O código de monitoramento de estoque foi removido para simplificar o painel.
+        
+        if (str_contains(request()->getHost(), 'trycloudflare.com')) {
+            URL::forceScheme('https');
+        }
     }
 }
