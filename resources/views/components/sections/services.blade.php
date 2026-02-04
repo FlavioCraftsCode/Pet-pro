@@ -14,7 +14,7 @@
                         :disabled="atBeginning" 
                         aria-label="Anterior"
                         :class="atBeginning ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white hover:text-orange-600 active:scale-90'" 
-                        class="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-white/30 flex items-center justify-center transition shadow-lg bg-orange-600 lg:bg-transparent">
+                        class="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-white/30 flex items-center justify-center transition shadow-lg bg-orange-600 lg:bg-transparent text-white">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
 
@@ -22,7 +22,7 @@
                         :disabled="atEnd" 
                         aria-label="Próximo"
                         :class="atEnd ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white hover:text-orange-600 active:scale-90'" 
-                        class="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-white/30 flex items-center justify-center transition shadow-lg bg-orange-600 lg:bg-transparent">
+                        class="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-white/30 flex items-center justify-center transition shadow-lg bg-orange-600 lg:bg-transparent text-white">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
@@ -33,23 +33,39 @@
              class="flex gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory pb-8 scroll-smooth no-scrollbar select-none -mx-4 px-4 sm:mx-0 sm:px-0">
             
             <div class="snap-start shrink-0 w-[85%] sm:w-[45%] lg:w-[30%]">
-                <x-service-card title="Banho & Tosa SPA" desc="Produtos orgânicos e especializados." image="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800" />
+                <x-service-card 
+                    title="Banho & Tosa SPA" 
+                    price="A partir de R$ 89"
+                    desc="Estética pet com produtos orgânicos e massagem relaxante inclusa." 
+                    image="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800"
+                    link="#agendar" />
             </div>
 
             <div class="snap-start shrink-0 w-[85%] sm:w-[45%] lg:w-[30%]">
-                <x-service-card title="Daycare Divertido" desc="Socialização e atividades monitoradas." image="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800" />
+                <x-service-card 
+                    title="Daycare Divertido" 
+                    price="Diárias de R$ 65"
+                    desc="Socialização e atividades monitoradas em ambiente seguro e amplo." 
+                    image="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=800"
+                    link="#saiba-mais" />
             </div>
 
             <div class="snap-start shrink-0 w-[85%] sm:w-[45%] lg:w-[30%]">
-                <x-service-card title="Clínica & Check-up" desc="Saúde preventiva para seu melhor amigo." image="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?q=80&w=800" />
+                <x-service-card 
+                    title="Clínica & Check-up" 
+                    price="Consulta R$ 120"
+                    desc="Saúde preventiva e exames laboratoriais para seu melhor amigo." 
+                    image="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?q=80&w=800"
+                    link="#agendar" />
             </div>
 
             <div class="snap-start shrink-0 w-[85%] sm:w-[45%] lg:w-[30%]">
-                <x-service-card title="Treinamento" desc="Adestramento focado em psicologia canina." image="https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800" />
-            </div>
-
-            <div class="snap-start shrink-0 w-[85%] sm:w-[45%] lg:w-[30%]">
-                <x-service-card title="Spa Felino" desc="Ambiente exclusivo e calmo para gatos." image="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800" />
+                <x-service-card 
+                    title="Treinamento" 
+                    price="Planos Mensais"
+                    desc="Adestramento comportamental focado em psicologia canina." 
+                    image="https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800"
+                    link="#contato" />
             </div>
         </div>
 

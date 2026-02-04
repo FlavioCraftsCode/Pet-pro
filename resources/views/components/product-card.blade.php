@@ -1,5 +1,12 @@
 @props(['product'])
 
+@php
+    // Mantendo sua lógica de conversão de preço
+    $valorReal = is_numeric($product->price) && $product->price > 500 
+                 ? $product->price / 100 
+                 : $product->price;
+@endphp
+
 <div class="bg-white p-4 rounded-[2.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group">
     
     <div class="relative overflow-hidden rounded-[2rem] mb-6 aspect-square">
@@ -15,23 +22,27 @@
         
         <div class="flex items-center justify-between mt-4">
             <span class="text-2xl font-black text-gray-900">
-                
-                @php
-                    $valorReal = is_numeric($product->price) && $product->price > 500 
-                                 ? $product->price / 100 
-                                 : $product->price;
-                @endphp
                 <small class="text-sm font-normal mr-1">R$</small>{{ number_format($valorReal, 2, ',', '.') }}
             </span>
             
             <button 
-                @click="$store.cart.add({ 
-                    id: {{ $product->id }},
-                    title: '{{ addslashes($product->title) }}', 
-                    price: {{ $valorReal }}, 
-                    image: '{{ $product->image }}' 
-                })"
-                class="w-12 h-12 bg-gray-900 text-white rounded-2xl flex items-center justify-center hover:bg-orange-600 transition-all shadow-lg active:scale-90"
+                type="button"
+                {{-- Usamos @click diretamente. O Alpine já entende o contexto global do $store --}}
+                @click="
+                    $store.cart.add({
+                        id: {{ $product->id }},
+                        title: @js($product->title),
+                        price: {{ $valorReal }},
+                        image: @js($product->image),
+                        category: @js($product->category)
+                    });
+                    
+                    // Feedback visual profissional (Botão pulsa e muda de cor)
+                    const btn = $event.currentTarget;
+                    btn.classList.replace('bg-gray-900', 'bg-green-600');
+                    setTimeout(() => btn.classList.replace('bg-green-600', 'bg-gray-900'), 500);
+                "
+                class="w-12 h-12 bg-gray-900 text-white rounded-2xl flex items-center justify-center hover:bg-orange-600 transition-all shadow-lg active:scale-75 cursor-pointer"
             >
                 <i class="fa-solid fa-plus"></i>
             </button>

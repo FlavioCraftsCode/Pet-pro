@@ -4,7 +4,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -13,9 +12,12 @@ Route::get('/blog', function () {
     return view('blog');
 })->name('blog');
 
+Route::get('/produtos', function () {
+    return view('components.sections.products');
+})->name('products.index');
+
 
 Route::post('/agendar', [AppointmentController::class, 'store'])->name('appointments.store');
-
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -28,13 +30,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('checkout');
 });
 
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 require __DIR__.'/auth.php';
