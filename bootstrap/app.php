@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         
-        // Esta linha permite que o Laravel aceite requisições vindo do túnel do Cloudflare
+        
         $middleware->trustProxies(at: '*');
 
         $middleware->redirectTo(

@@ -1,50 +1,96 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
-
-// Importa a lógica do carrinho. 
-// Certifique-se de que dentro do shop-logic.js você usa: 
-// document.addEventListener('alpine:init', () => { Alpine.store('cart', { ... }) })
-import './shop-logic';
+import persist from '@alpinejs/persist';
 
 window.Alpine = Alpine;
+Alpine.plugin(persist);
 
-/**
- * Componentes Globais (Ex: Slider de Produtos)
- */
-window.sliderHandler = function() {
-    return {
-        atBeginning: true,
-        atEnd: false,
+
+Alpine.store('cart', {
+    items: Alpine.$persist([]).as('petpro_cart'),
+    
+    addItem(product) {
+        const id = product.id.toString();
+        const existing = this.items.find(item => item.id.toString() === id);
         
-        init() {
-            // Espera o DOM estar pronto para checar o scroll inicial
-            this.$nextTick(() => this.checkScroll());
-            window.addEventListener('resize', () => this.checkScroll());
-        },
-
-        checkScroll() {
-            const slider = this.$refs.slider;
-            if (!slider) return;
-            this.atBeginning = slider.scrollLeft <= 5;
-            this.atEnd = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 5;
-        },
-
-        scrollTo(direction) {
-            const slider = this.$refs.slider;
-            if (!slider) return;
-            // Define o quanto vai rolar: 80% da tela no mobile ou metade no desktop
-            const scrollAmount = window.innerWidth < 768 ? slider.clientWidth * 0.8 : slider.clientWidth / 2;
-            
-            slider.scrollBy({
-                left: direction === 'next' ? scrollAmount : -scrollAmount,
-                behavior: 'smooth'
+        if (existing) {
+            existing.quantity++;
+        } else {
+            this.items.push({
+                id: id,
+                name: product.name || product.title,
+                price: parseFloat(product.price),
+                image: product.image,
+                quantity: 1
             });
-            
-            // Recheca a posição após a animação de scroll terminar
-            setTimeout(() => this.checkScroll(), 400);
         }
-    }
-}
+        this.items = [...this.items];
+    },
 
+    removeItem(id) {
+        this.items = this.items.filter(item => item.id.toString() !== id.toString());
+        this.items = [...this.items];
+    },
+
+    updateQuantity(id, quantity) {
+        const item = this.items.find(item => item.id.toString() === id.toString());
+        if (item) {
+            item.quantity = Math.max(0, quantity);
+            if (item.quantity === 0) {
+                this.removeItem(id);
+            }
+        }
+        this.items = [...this.items];
+    },
+
+    get totalPrice() {
+        return this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    },
+
+    get totalItems() {
+        return this.items.reduce((sum, item) => sum + item.quantity, 0);
+    }
+});
+
+
+Alpine.data('sliderHandler', () => ({
+    atBeginning: true,
+    atEnd: false,
+    scrollPercent: 0,
+
+    checkScroll() {
+        const slider = this.$refs.slider;
+        if (!slider) return;
+
+        this.atBeginning = slider.scrollLeft <= 5; 
+        this.atEnd = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 5;
+        
+        const maxScroll = slider.scrollWidth - slider.offsetWidth;
+        this.scrollPercent = maxScroll > 0 ? (slider.scrollLeft / maxScroll) * 100 : 0;
+    },
+
+    scrollTo(direction) {
+        const slider = this.$refs.slider;
+        if (!slider) return;
+
+        
+        const firstCard = slider.firstElementChild;
+        const cardWidth = firstCard ? firstCard.offsetWidth + 16 : 300; 
+        const scrollAmount = direction === 'next' ? cardWidth : -cardWidth;
+
+        slider.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    },
+
+    init() {
+        this.$nextTick(() => {
+            this.checkScroll();
+        });
+    }
+}));
 
 Alpine.start();
+console.log('✅ Carrinho PetPro: Motor Rodando!');
+console.log('✅ Slider PetPro: Carregado!');

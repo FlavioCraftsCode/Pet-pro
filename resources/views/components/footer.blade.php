@@ -62,7 +62,7 @@
         <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.2em] text-gray-500 text-center">
             <p>&copy; {{ date('Y') }} PetPro. Criado com TALL Stack.</p>
             <p class="flex items-center gap-2">
-                Desenvolvido por <span class="text-white font-bold hover:text-orange-500 transition-colors cursor-pointer">Flávio</span>
+                Desenvolvido por <span class="text-white font-bold hover:text-orange-500 transition-colors cursor-pointer"></span>
             </p>
         </div>
     </div>

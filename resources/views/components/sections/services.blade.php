@@ -1,8 +1,14 @@
 <section id="servicos" 
-         class="bg-orange-600 py-12 md:py-20 overflow-hidden" 
+         class="bg-orange-600 pb-12 md:pb-20 relative overflow-visible" 
          x-data="sliderHandler()">
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 text-white">
+    <div class="absolute top-0 left-0 w-full overflow-hidden line-height-0">
+        <svg class="relative block w-full h-[50px] md:h-[100px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5,73.84-4.36,147.54,16.88,218.2,35.26,69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="#F9F5F0"></path>
+        </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 text-white pt-24 md:pt-32">
         <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 md:mb-12 gap-6 text-center lg:text-left">
             <div>
                 <span class="text-white/80 font-bold uppercase tracking-widest text-[10px] md:text-sm">Experiências PetPro</span>

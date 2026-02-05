@@ -4,18 +4,26 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 
+// Home
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+// Blog
 Route::get('/blog', function () {
     return view('blog');
 })->name('blog');
 
+// Produtos
 Route::get('/produtos', function () {
     return view('components.sections.products');
 })->name('products.index');
 
+
+Route::get('/carrinho', function () {
+ 
+    return view('components.cart'); 
+})->name('cart');
 
 Route::post('/agendar', [AppointmentController::class, 'store'])->name('appointments.store');
 
